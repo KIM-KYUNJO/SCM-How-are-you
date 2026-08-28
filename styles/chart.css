@@ -1,0 +1,5 @@
+.chart { width: 100%; min-height: 220px; }
+.chart__gridline { stroke: var(--color-border-soft); stroke-width: 1; }
+.chart__line { stroke: var(--color-primary); stroke-width: 3; fill: none; }
+.chart__area { fill: var(--color-primary-soft); }
+.chart__label { fill: var(--color-text-muted); font-size: 11px; }

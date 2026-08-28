@@ -1,5 +1,6 @@
-import ProcurementApp from '@/components/procurement-app';
+import { redirect } from 'next/navigation';
 
 export default function Page() {
-  return <ProcurementApp />;
+  redirect('/user/overview');
 }
+

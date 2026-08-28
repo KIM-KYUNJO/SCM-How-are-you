@@ -1,0 +1,14 @@
+.app-shell { min-height: 100vh; display: flex; }
+.main { min-width: 0; flex: 1; }
+.content { width: 100%; max-width: 1440px; margin: 0 auto; padding: var(--space-8) 42px 56px; }
+.page-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-5); margin-bottom: var(--space-6); }
+.page-heading h2 { margin: 4px 0 6px; font-size: 25px; letter-spacing: -1px; }
+.page-heading p { margin: 0; color: var(--color-text-muted); font-size: 13px; }
+.button-row { display: flex; gap: 9px; }
+.topbar { min-height: 75px; padding: 0 42px; background: color-mix(in srgb, var(--color-surface) 92%, transparent); border-bottom: 1px solid var(--color-border-soft); display: flex; justify-content: space-between; align-items: center; }
+.eyebrow { color: var(--color-primary); text-transform: uppercase; font-size: 10px; font-weight: 800; letter-spacing: 1.2px; }
+.topbar h1 { margin: 5px 0 0; font-size: 18px; letter-spacing: -.5px; }
+.top-meta { display: flex; align-items: center; gap: 18px; color: var(--color-text-muted); font-size: 12px; }
+.local-badge { color: var(--color-safe); background: var(--color-safe-soft); border: 1px solid color-mix(in srgb, var(--color-safe) 25%, white); border-radius: 999px; padding: 6px 10px; font-weight: 700; }
+@media (max-width: 1050px) { .content, .topbar { padding-left: 26px; padding-right: 26px; } }
+@media (max-width: 760px) { .app-shell { display: block; } .topbar { padding: 17px 18px; gap: 12px; align-items: flex-start; } .top-meta { display: block; text-align: right; font-size: 10px; } .local-badge { display: inline-block; margin-bottom: 4px; } .content { padding: 22px 18px 40px; } .page-heading { display: block; } .button-row { margin-top: 15px; } }

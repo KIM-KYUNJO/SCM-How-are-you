@@ -1,0 +1,2 @@
+/* Legacy workflow styles remain isolated while the new route groups migrate. */
+.legacy-workflow { min-height: 100vh; }
