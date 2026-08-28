@@ -1,0 +1,10 @@
+import { requireAdmin } from '@/lib/auth';
+import { createClient } from '@/lib/supabase/server';
+import { Topbar } from '@/components/shell/topbar';
+import { PageHeader } from '@/components/shell/page-header';
+import { Panel } from '@/components/ui/panel';
+import { Badge } from '@/components/ui/badge';
+import { changeActive, changeRole } from './actions';
+
+export const dynamic = 'force-dynamic';
+export default async function AdminUsersPage() { await requireAdmin(); const supabase = await createClient(); const { data: users, error } = await supabase.schema('core').from('app_user').select('user_id, email, name, department, role, active, last_login_at').order('created_at'); if (error) throw new Error(error.message); return <><Topbar title="사용자 관리" /><div className="content"><PageHeader title="사용자 관리" description="ADMIN만 role과 계정 활성 상태를 변경할 수 있습니다." /><Panel title="사용자 목록" description="변경 사항은 audit_log에 기록됩니다."><div className="data-table-wrap"><table className="data-table"><thead><tr><th>사용자</th><th>부서</th><th>Role</th><th>상태</th><th>관리</th></tr></thead><tbody>{(users ?? []).map((user) => <tr key={user.user_id}><td>{user.name || user.email}<br /><span className="muted">{user.email}</span></td><td>{user.department || '—'}</td><td><Badge status={user.role === 'ADMIN' ? 'SAFE' : 'CALCULATION_UNAVAILABLE'}>{user.role}</Badge></td><td>{user.active ? <Badge status="SAFE">ACTIVE</Badge> : <Badge status="CRITICAL">INACTIVE</Badge>}</td><td><div className="button-row"><form action={changeRole}><input type="hidden" name="userId" value={user.user_id} /><input type="hidden" name="role" value={user.role === 'ADMIN' ? 'USER' : 'ADMIN'} /><button className="button" type="submit">{user.role === 'ADMIN' ? 'USER로 변경' : 'ADMIN으로 변경'}</button></form><form action={changeActive}><input type="hidden" name="userId" value={user.user_id} /><input type="hidden" name="active" value={String(!user.active)} /><button className="button ghost" type="submit">{user.active ? '비활성화' : '활성화'}</button></form></div></td></tr>)}</tbody></table></div>{!users?.length && <p className="muted">{error ? '사용자 목록을 불러오지 못했습니다.' : '등록된 사용자가 없습니다.'}</p>}</Panel></div></>; }
